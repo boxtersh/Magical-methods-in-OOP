@@ -2,7 +2,11 @@
 
 class Point:
 
-    def __init__(self, x , y):
+    def __init__(
+            self,
+            x ,
+            y
+    ):
 
         self.x = x
         self.y = y
@@ -101,12 +105,13 @@ print(f'\033[36mДлинна вектора vec_2:\033[0m {round(vec_2.len_vecto
 
 class Money:
 
-    def __init__(self,
-                 dollars,
-                 cents
+    def __init__(
+            self,
+            dollars,
+            cents
     ):
         if abs(cents) >= 100:
-            self.dollars = dollars + cents // 100
+            self.dollars =+ cents // 100
             self.cents = cents % 100
 
         else:
@@ -163,3 +168,78 @@ print(f'money_1  + money_2 = {money_3}')
 
 money_3 = money_2  - money_1
 print(f'money_2  - money_1 = {money_3}')
+
+# - - - - - - - - - - - - - -  class Time  - - - - - - - - - - - - - -
+
+class Time:
+
+    def __init__(
+            self,
+            hour,
+            minutes,
+            seconds
+    ):
+
+        if abs(seconds) >= 60:
+
+            self.hour = hour
+            minutes = minutes + seconds // 60
+            self.minutes = minutes
+            seconds = seconds % 60
+            self.seconds = seconds
+            print('1**', self.hour,self.minutes,self.seconds)
+
+        if abs(minutes) >= 60:
+
+            self.hour = hour + minutes // 60
+            self.minutes = minutes % 60
+            self.seconds = seconds
+            print('2**', self.hour, self.minutes, self.seconds)
+
+        else:
+            self.hour = hour
+            self.minutes = minutes
+            self.seconds = seconds
+
+    def __str__(self):
+
+        time = f'часов: {self.hour}\nминут: {self.minutes}\nсекунд: {self.seconds}\n'
+
+        return time
+
+    def __len__(self):
+
+        sec = self.hour * 3600 + self.minutes * 60 + self.seconds
+
+        return sec
+
+    def sec_is_time(self, sec):
+
+        hour = sec // 3600
+        min = int((sec / 3600 - hour) * 60 // 1)
+        sec = int((((sec / 3600 - hour) * 60) - min) * 60 // 1)
+
+        time = Time(hour, min, sec)
+
+        return time
+
+
+
+    def __add__(self, other):
+
+        sec = len(self) + len(other)
+        time = self.sec_is_time(sec)
+
+        return time
+
+
+
+time_1 = Time(1,25,45)
+time_2 = Time(1,35,20)
+print(f'time_1:\n{time_1}\ntime_2:\n{time_2}\n')
+
+time_3 = time_1 + time_2
+print(time_3)
+
+len(time_1)
+print(f'Число секунд во времени time_1 = {len(time_1)}')
