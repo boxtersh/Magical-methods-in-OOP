@@ -17,6 +17,32 @@ class Point:
 
         return f'x = {self.x}, y =  {self.y}'
 
+    def __add__(self, other):
+
+        new_x = self.x + other.x
+        new_y = self.y + other.y
+
+        new_point = Point(new_x, new_y)
+
+        return new_point
+
+    def __sub__(self, other):
+
+        new_x = self.x - other.x
+        new_y = self.y - other.y
+
+        new_point = Point(new_x, new_y)
+
+        return new_point
+
+point_1 = Point(2, 7)
+point_2 = Point(3, 4)
+print(f'\033[36mpoint_1:\033[0m\n{point_1}\n\033[36mpoint_2:\033[0m\n{point_2}\n')
+point_3 = point_1 + point_2
+print(f'\033[36mpoint_1 + point_2:\033[0m\n{point_3}\n')
+point_3 = point_1 - point_2
+print(f'\033[36mpoint_1 - point_2:\033[0m\n{point_3}\n')
+
 # - - - - - - - - - - - - - -  class Vector2D  - - - - - - - - - - - - - -
 
 class Vector2D:
