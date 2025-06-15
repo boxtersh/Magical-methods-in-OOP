@@ -1,3 +1,5 @@
+# - - - - - - - - - - - - - -  class Point  - - - - - - - - - - - - - -
+
 class Point:
 
     def __init__(self, x , y):
@@ -10,6 +12,8 @@ class Point:
     def __str__(self):
 
         return f'x = {self.x}, y =  {self.y}'
+
+# - - - - - - - - - - - - - -  class Vector2D  - - - - - - - - - - - - - -
 
 class Vector2D:
 
@@ -27,7 +31,7 @@ class Vector2D:
                   f'\033[36mконец\033[0m {self.end}\n\n')
         return vector
 
-    def __add__(self, other: "Point"):
+    def __add__(self, other):
 
         new_start_x = self.start.x + other.start.x
         new_start_y = self.start.y + other.start.y
@@ -72,13 +76,6 @@ class Vector2D:
 
         return len_vector
 
-
-
-
-
-
-
-
 a = Point(1,1)
 b = Point(2, 2)
 a1 = Point(3,4)
@@ -100,3 +97,69 @@ print(f'\033[36mvec_2 * 3:\033[0m {vec_3}')
 vec_2.len_vector()
 print(f'\033[36mДлинна вектора vec_2:\033[0m {round(vec_2.len_vector(), 3)}')
 
+# - - - - - - - - - - - - - -  class Money  - - - - - - - - - - - - - -
+
+class Money:
+
+    def __init__(self,
+                 dollars,
+                 cents
+    ):
+        if abs(cents) >= 100:
+            self.dollars = dollars + cents // 100
+            self.cents = cents % 100
+
+        else:
+            self.dollars = dollars
+            self.cents = cents
+
+    def __str__(self):
+
+        money = f'\033[36mДолларов:\033[0m {self.dollars} \033[36mцентов\033[0m: {self.cents}'
+
+        return money
+
+    def from_dollars_cents_is_cents(self):
+
+        cents = self.dollars * 100 + self.cents
+
+        return cents
+
+    def from_cents_is_dollars_cents(self, cents):
+
+        new_dollars = cents // 100
+        new_cents = cents % 100
+        money = Money(new_dollars, new_cents)
+        return money
+
+
+    def __add__(self, other):
+
+        new_cents = self.from_dollars_cents_is_cents() + other.from_dollars_cents_is_cents()
+        money = self.from_cents_is_dollars_cents(new_cents)
+
+        return money
+
+    def __sub__(self, other):
+
+        new_cents = self.from_dollars_cents_is_cents() - other.from_dollars_cents_is_cents()
+
+        if abs(new_cents) < 100:
+            money = Money(0, new_cents)
+
+        else:
+            money = self.from_cents_is_dollars_cents(new_cents)
+
+
+        return money
+
+
+money_1 = Money(5,75)
+money_2 = Money(1,351)
+print(f'money_1: {money_1}\nmoney_2: {money_2}')
+
+money_3 = money_1  + money_2
+print(f'money_1  + money_2 = {money_3}')
+
+money_3 = money_2  - money_1
+print(f'money_2  - money_1 = {money_3}')
