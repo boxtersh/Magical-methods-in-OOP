@@ -87,6 +87,56 @@ print(f'\033[36mpoint_3:\033[0m {point_3}')
 
 print(f'\033[36mКоличество полей в объекте point_3:\033[0m {len(point_3)}\n\n')
 
+# - - - - - - - - - - - - - -  class Temperature  - - - - - - - - - - - - - -
+
+class Temperature:
+
+    def __init__(
+            self,
+            degrees
+    ):
+
+        self.degrees = degrees
+
+    def __str__(self):
+        temperature = f'{self.degrees} гр. Цельсия'
+        return temperature
+
+    def __add__(self, other):
+
+        new_degrees = self.degrees + other.degrees
+
+        temperature = Temperature(new_degrees)
+
+        return temperature
+
+    def __sub__(self, other):
+
+        new_degrees = self.degrees - other.degrees
+
+        temperature = Temperature(new_degrees)
+
+        return temperature
+
+    def __mul__(self, numder: int):
+
+        new_degrees = self.degrees * numder
+
+        temperature = Temperature(new_degrees)
+
+        return temperature
+
+temp_1 = Temperature(25)
+temp_2 = Temperature(17)
+print(f'\033[36mtemp_1:\033[0m {temp_1}\n\033[36mtemp_2\033[0m: {temp_2}\n')
+
+temp_3 = temp_2 + temp_1
+print(f'\033[36mtemp_2 + temp_1:\033[0m {temp_3}\n')
+temp_3 = temp_2 - temp_1
+print(f'\033[36mtemp_2 - temp_1:\033[0m {temp_3}\n')
+temp_3 = temp_1 * 7
+print(f'\033[36mtemp_1 * 7:\033[0m {temp_3}\n')
+
 # - - - - - - - - - - - - - -  class Vector2D  - - - - - - - - - - - - - -
 
 class Vector2D:
