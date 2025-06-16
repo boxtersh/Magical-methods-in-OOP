@@ -137,6 +137,123 @@ print(f'\033[36mtemp_2 - temp_1:\033[0m {temp_3}\n')
 temp_3 = temp_1 * 7
 print(f'\033[36mtemp_1 * 7:\033[0m {temp_3}\n')
 
+# - - - - - - - - - - - - - -  class Matrix  - - - - - - - - - - - - - -
+
+class Matrix:
+
+    def __init__(
+            self,
+            str = 2
+    ):
+        import random
+
+        matrix = []
+        for i in range(str):
+            row = []
+
+            for j in range(str):
+                row.append(random.randint(1, 7))
+
+            matrix.append(row)
+
+        self.matrix = matrix
+
+    def __str__(self):
+
+        sting = ''
+        for lst in self.matrix:
+
+            lst = map(str,lst)
+            sting +=' '.join(lst)+ '\n'
+
+        return sting
+
+    def __add__(self, other):
+
+        matrix_sum = []
+        for i in range (len(self.matrix)):
+            row = []
+            for j in range(len(self.matrix)):
+                row.append(self.matrix[i][j] + other.matrix[i][j])
+
+            matrix_sum.append(row)
+
+        return matrix_sum
+
+    def __mul__(self, number):
+
+        matrix_mul = []
+
+        for lst in self.matrix:
+
+            lst = list(map(lambda elm: elm * number, lst))
+            matrix_mul.append(lst)
+
+        return matrix_mul
+
+    def __len__(self):
+
+        len_matrix = len(self.matrix) * len(self.matrix[0])
+
+        return len_matrix
+
+    def matrix_mul_matrix(self, matrix):
+
+        new_matrix = []
+        elm = 0
+        iter = len(self.matrix) - 1
+
+        for i in range(len(self.matrix)):
+
+            count = 0
+            row = []
+
+            while count <= iter:
+
+                for j in range(len(self.matrix)):
+
+                    elm += self.matrix[i][j] * matrix.matrix[j][count]
+
+                row.append(elm)
+                count += 1
+                elm = 0
+
+            new_matrix.append(row)
+
+        return new_matrix
+
+
+def print_matrix(matrix):
+
+    sting = ''
+    for elm in matrix:
+
+        elm = map(str,elm)
+        sting +=' '.join(elm)+ '\n'
+
+    return print(sting)
+
+matrix_1 = Matrix(2)
+print(f'\033[36mmatrix_1:\033[0m\n{matrix_1}')
+
+matrix_2 = Matrix(2)
+print(f'\033[36mmatrix_2:\033[0m\n{matrix_2}')
+
+matrix_3 = matrix_1 + matrix_2
+print(f'\033[36mmatrix_1 + matrix_2:\033[0m')
+print_matrix(matrix_3)
+
+matrix_4 = matrix_1 * 3
+print(f'\033[36mmatrix_1 * 3:\033[0m')
+print_matrix(matrix_4)
+
+print(f'\033[36mКоличество элементов в матрице matrix_1 = \033[0m{len(matrix_1)}\n')
+
+matrix_6 = matrix_1.matrix_mul_matrix(matrix_2)
+
+print(f'\033[36mmatrix_1 * matrix_2:\033[0m')
+print_matrix(matrix_6)
+
 # - - - - - - - - - - - - - -  class Vector2D  - - - - - - - - - - - - - -
 
 class Vector2D:
@@ -351,7 +468,6 @@ class Time:
         time = self.sec_is_time(sec)
 
         return time
-
 
 
 time_1 = Time(1,25,45)
