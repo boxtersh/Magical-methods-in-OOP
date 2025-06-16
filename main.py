@@ -7,11 +7,9 @@ class Point:
             x ,
             y
     ):
-
         self.x = x
         self.y = y
-        self.start = None
-        self.end = None
+
 
     def __str__(self):
 
@@ -42,6 +40,52 @@ point_3 = point_1 + point_2
 print(f'\033[36mpoint_1 + point_2:\033[0m\n{point_3}\n')
 point_3 = point_1 - point_2
 print(f'\033[36mpoint_1 - point_2:\033[0m\n{point_3}\n')
+
+# - - - - - - - - - - - - - -  class ColoredPoint  - - - - - - - - - - - - - -
+
+class ColoredPoint(Point):
+
+    def __init__(
+            self,
+            x,
+            y,
+            color = 'black'
+    ):
+        super().__init__(x, y)
+        self.color = color
+
+    def __str__(self):
+
+        return f'x = {self.x}, y =  {self.y} color = {self.color}'
+
+    def __add__(self, other):
+
+        point = super().__add__(other)
+
+        if self.color != other.color:
+            color = 'black'
+        else:
+            color = self.color
+
+        new_point = ColoredPoint(point.x, point.y, color)
+
+        return new_point
+
+    def __len__(self):
+        lst = [self.x , self.y, self.color]
+        len(lst)
+
+        return len(lst)
+
+
+point_1 = ColoredPoint(2, 7, 'red')
+point_2 = ColoredPoint(3, 4, 'blue')
+print(f'\033[36mpoint_1:\033[0m {point_1}\n\033[36mpoint_2:\033[0m {point_2}\n')
+
+point_3 = point_2 + point_1
+print(f'\033[36mpoint_3:\033[0m {point_3}')
+
+print(f'\033[36mКоличество полей в объекте point_3:\033[0m {len(point_3)}\n\n')
 
 # - - - - - - - - - - - - - -  class Vector2D  - - - - - - - - - - - - - -
 
